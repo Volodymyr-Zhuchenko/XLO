@@ -1,0 +1,19 @@
+﻿@model ItProger.Models.Contact
+
+@{
+    ViewData["Title"] = "Перегляд Контакту";
+}
+
+<h1>Інформація про контакт</h1>
+
+<div>
+    <h3>@Model.Name @Model.SurName</h3>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Вік:</strong> @Model.Age</p>
+    <p><strong>Пароль:</strong> @Model.Password</p> <!-- Не рекомендується виводити пароль -->
+</div>
+
+<!-- Ви можете додати додаткові кнопки або посилання для редагування або видалення -->
+<div>
+    <a href="@Url.Action("Edit", "Contacts", new { id = Model.Id })">Редагувати</a>
+</div>
