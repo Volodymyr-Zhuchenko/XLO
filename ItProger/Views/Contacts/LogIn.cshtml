@@ -1,0 +1,18 @@
+﻿@model Autorizate
+@{
+    ViewData["Title"] = "Вхід";
+}
+
+<h1>Вхід</h1>
+<form method="post" asp-controller="Contacts" asp-action="LogIn">
+    <label asp-for="Email"></label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+    <br />
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+
+    <input type="submit" value="Відправити" />
+
+</form>
