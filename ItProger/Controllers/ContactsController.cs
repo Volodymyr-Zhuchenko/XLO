@@ -78,5 +78,46 @@ namespace ItProger.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult LogIn(Autorizate autorizate)
+        {
+            if (ModelState.IsValid)
+            {
+                // Перевіряємо, чи є користувач в базі даних
+                var user = _context.Contacts.FirstOrDefault(c => c.Email == autorizate.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("Email", "Користувач з таким Email не знайдений.");
+                    return View(autorizate);
+                }
+
+                // Перевіряємо пароль
+                if (user.Password != HashPassword(autorizate.Password))
+                {
+                    ModelState.AddModelError("Password", "Невірний пароль.");
+                    return View(autorizate);
+                }
+
+                // Якщо логін успішний, зберігаємо дані користувача в сесії
+                HttpContext.Session.SetString("UserEmail", user.Email);
+
+                // Перенаправляємо на UserAccountController
+                return RedirectToAction("ViewAccount", "UserAccount");
+            }
+
+            return View(autorizate);
+        }
+
+        public IActionResult LogOut()
+        {
+            // Виходимо з сесії
+            HttpContext.Session.Remove("UserEmail");
+
+            return RedirectToAction("LogIn");
+        }
+
+       
+
     }
 }

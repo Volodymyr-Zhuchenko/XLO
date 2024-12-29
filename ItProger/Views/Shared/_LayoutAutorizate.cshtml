@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <span class="logo">XLO</span>
+        <nav>
+            <a href="/">Головна</a>
+            <a href="/contacts/LogIn">Вихід</a>
+            <a href="/contacts">Реєстрація</a>
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer>Всі права захищені</footer>
+</body>
+</html>

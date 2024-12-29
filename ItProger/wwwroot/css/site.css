@@ -3,7 +3,13 @@
     padding: 0;
 }
 
+html, body {
+    height: 100%; /* Розтягуємо на всю висоту екрану */
+}
+
 body {
+    display: flex;
+    flex-direction: column; /* Вертикальне розташування */
     background: silver;
     font-family: 'Monsterrat', sans-serif;
 }
@@ -47,10 +53,10 @@ header nav a {
 header nav a:hover {text-decoration: underline}
 
 main {
+    flex: 1; /* Займає весь доступний простір між header і footer */
     width: 80%;
     padding: 15px 10%;
     margin: 50px 0;
-
 }
 
 footer {
