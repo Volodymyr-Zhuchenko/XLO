@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ItProger.Models.Category;
+using Microsoft.EntityFrameworkCore;
 namespace ItProger.Models
 {
     public class AppDbContext : DbContext
@@ -9,5 +10,7 @@ namespace ItProger.Models
         }
 
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Laptop> Laptops { get; set; }
+        public DbSet<Phone> Phones { get; set; }
     }
 }

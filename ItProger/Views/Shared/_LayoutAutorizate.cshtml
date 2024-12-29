@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
 </head>
 <body>
     <header>
@@ -12,7 +13,7 @@
         <nav>
             <a href="/">Головна</a>
             <a href="/contacts/LogIn">Вихід</a>
-            <a href="/contacts">Реєстрація</a>
+            <a>@Context.Session.GetString("UserEmail")</a>
         </nav>
     </header>
     <main>

@@ -1,21 +1,44 @@
-﻿@model ItProger.Models.Contact
+﻿@model List<string>
 
 @{
-    ViewData["Title"] = "Перегляд Контакту";
+    ViewData["Title"] = "Категорії товарів";
     Layout = "~/Views/Shared/_LayoutAutorizate.cshtml";
     <!-- Вказуємо кастомний макет -->
 }
 
-<h1>Інформація про контакт</h1>
+<h1>Категорії товарів</h1>
 
-<div>
-    <h3>@Model.Name @Model.SurName</h3>
-    <p><strong>Email:</strong> @Model.Email</p>
-    <p><strong>Вік:</strong> @Model.Age</p>
-    <p><strong>Пароль:</strong> @Model.Password</p> <!-- Не рекомендується виводити пароль -->
+<!-- Рядок для пошуку -->
+<form method="get" asp-controller="UserAccount" asp-action="ViewAccount">
+    <input type="text" name="searchTerm" placeholder="Пошук..." value="@Context.Request.Query["searchTerm"]" />
+    <button type="submit">Пошук</button>
+</form>
+
+<!-- Кнопка "Мої товари" -->
+<div style="margin-top: 20px;">
+    <a href="@Url.Action("MyProducts", "UserAccount")" class="btn btn-primary" style="padding: 10px 20px; text-decoration: none; color: white; background-color: #007bff; border-radius: 5px;">
+        Мої товари
+    </a>
 </div>
 
-<!-- Ви можете додати додаткові кнопки або посилання для редагування або видалення -->
-<div>
-    <a href="@Url.Action("Edit", "Contacts", new { id = Model.Id })">Редагувати</a>
+<!-- Відображення категорій -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+    @foreach (var category in Model)
+    {
+        <div style="width: 150px; height: 150px; text-align: center; cursor: pointer; border: 1px solid #ccc; border-radius: 10px; overflow: hidden;"
+             onclick="selectCategory('@category')">
+            <img src="~/images/categories/@($"{category.ToLower()}.png")" alt="@category" style="width: 100%; height: 70%; object-fit: cover;" />
+            <p style="margin: 10px 0; font-size: 14px;">@category</p>
+        </div>
+    }
 </div>
+
+<!-- JavaScript для обробки вибору категорії -->
+<script>
+    function selectCategory(category) {
+        alert("Вибрана категорія: " + category);
+        // Наприклад, перенаправлення на сторінку товарів обраної категорії
+        // window.location.href = '/Products/' + category;
+    }
+</script>
+
