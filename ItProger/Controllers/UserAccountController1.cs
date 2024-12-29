@@ -16,24 +16,33 @@ namespace ItProger.Controllers
         }
 
         // Дія для перегляду інформації користувача
+        
         public IActionResult ViewAccount()
         {
+            // Отримуємо email користувача з сесії
             var email = HttpContext.Session.GetString("UserEmail");
 
+            // Перевіряємо, чи є email у сесії
             if (string.IsNullOrEmpty(email))
             {
-                return RedirectToAction("LogIn", "Contacts"); // Якщо email відсутній, редиректимо на сторінку входу
+                TempData["ErrorMessage"] = "Будь ласка, увійдіть у систему, щоб переглянути обліковий запис.";
+                return RedirectToAction("LogIn", "Contacts"); // Редирект на сторінку входу
             }
 
             // Шукаємо контакт за email
-            var contact = _context.Contacts.FirstOrDefault(c => c.Email == email);
+            var contact = _context.Contacts
+                                  .FirstOrDefault(c => c.Email.ToLower() == email.ToLower());
 
+            // Якщо контакт не знайдено
             if (contact == null)
             {
-                return NotFound(); // Якщо контакт не знайдений
+                TempData["ErrorMessage"] = "Контакт не знайдено.";
+                return RedirectToAction("LogIn", "Contacts");
             }
 
-            return View(contact); // Передаємо контакт в представлення
+
+            // Повертаємо контакт у вигляді моделі
+            return View(contact);
         }
     }
 }
